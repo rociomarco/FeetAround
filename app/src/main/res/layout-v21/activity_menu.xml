@@ -10,9 +10,22 @@
     tools:context=".MenuActivity">
 
     <RelativeLayout
-        android:layout_weight="2"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/menu"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
     </RelativeLayout>
 
     <GridLayout
@@ -51,11 +64,10 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@drawable/bar"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/localization" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -85,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/localization" />
+                    android:src="@drawable/like" />
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
@@ -114,10 +126,10 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@drawable/cafe"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/shop" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -175,10 +187,10 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@drawable/globe"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/cafe" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -207,7 +219,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/localization" />
+                    android:src="@drawable/bar" />
             </LinearLayout>
 
         </android.support.v7.widget.CardView>

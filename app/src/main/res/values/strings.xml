@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Project Summer</string>
+    <string name="app_name">Feet Around</string>
     <string name="button">Start</string>
     <string name="menu">MENU</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
