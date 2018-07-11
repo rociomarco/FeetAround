@@ -2,6 +2,8 @@ package com.example.rosiomarco.projectsummer;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -11,16 +13,20 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.rosiomarco.projectsummer.Model.MyPlaces;
 import com.example.rosiomarco.projectsummer.Model.Results;
 import com.example.rosiomarco.projectsummer.Remote.IGoogleAPIService;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Result;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,23 +36,25 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+public class BankActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        com.google.android.gms.location.LocationListener {
+        LocationListener {
 
     private static final int MY_PERMISSION_CODE = 1000;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
 
-    private double latitude, longitude;
+    double latitude, longitude;
     private Location mLastLocation;
     private Marker mMarker;
     private LocationRequest mLocationRequest;
+
 
     IGoogleAPIService mService;
 
@@ -54,7 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_bank);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -120,16 +128,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
             }
+        } else
+        {
+            buildGoogleApiClient();
+            mMap.setMyLocationEnabled(true);
         }
 
-            else
-                {
-                    buildGoogleApiClient();
-                    mMap.setMyLocationEnabled(true);
-                }
-        }
+        final Button bank = (Button) findViewById(R.id.bank);
+        bank.setOnClickListener(new View.OnClickListener() {
+            String Bank = "bank";
 
-        private void buildGoogleApiClient(){
+            @Override
+            public void onClick(View v) {
+                bank.setVisibility(View.GONE);
+                Log.d("onClick", "Button is Clicked");
+                mMap.clear();
+                String url = getUrl(latitude,longitude,Bank);
+                Object[] DataTransfer = new Object[2];
+                DataTransfer[0]=mMap;
+                DataTransfer[1]=url;
+                Log.d("OnClick", url);
+                GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+                getNearbyPlacesData.execute(DataTransfer);
+                Toast.makeText(BankActivity.this,"Nearby Bar", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private synchronized void buildGoogleApiClient(){
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -138,7 +164,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
         mGoogleApiClient.connect();
-        }
+    }
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -176,7 +203,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .title("You are here")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_here));
+
         mMarker = mMap.addMarker(markerOptions);
 
         //camera move
@@ -209,7 +237,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 LatLng latLng = new LatLng(lat,lng);
                                 markerOptions.position(latLng);
                                 markerOptions.title(placeName);
-                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                             }
                         }
                     }
@@ -219,13 +246,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
     }
+
     private String getUrl (double latitude, double longitude, String placeType){
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlaceUrl.append("location="+latitude+","+longitude);
         googlePlaceUrl.append("&radius="+1000);
         googlePlaceUrl.append("&type="+placeType);
-        googlePlaceUrl.append("&sensor=true");
-        googlePlaceUrl.append("&sky="+getResources().getString(R.string.browser_key));
+
+        googlePlaceUrl.append("&key="+getResources().getString(R.string.browser_key));
         Log.d("getUrl",googlePlaceUrl.toString());
         return googlePlaceUrl.toString();
     }

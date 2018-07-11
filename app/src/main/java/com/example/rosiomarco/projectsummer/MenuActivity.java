@@ -1,23 +1,11 @@
 package com.example.rosiomarco.projectsummer;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toolbar;
-
-import com.google.android.gms.maps.GoogleMap;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -43,7 +31,7 @@ public class MenuActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     if (finalI == 0)
                     {
-                        Intent intent = new Intent(MenuActivity.this,MapsActivity.class );
+                        Intent intent = new Intent(MenuActivity.this,RestaurantActivity.class );
                         startActivity(intent);
 
 
@@ -55,22 +43,22 @@ public class MenuActivity extends AppCompatActivity {
                     }
                     else if (finalI == 2)
                     {
-                        Intent intent = new Intent(MenuActivity.this,BarActivity.class);
+                        Intent intent = new Intent(MenuActivity.this,StoreActivity.class);
                         startActivity(intent);
                     }
                     else if (finalI == 3)
                     {
-                        Intent intent = new Intent(MenuActivity.this,BarActivity.class);
+                        Intent intent = new Intent(MenuActivity.this,GasActivity.class);
                         startActivity(intent);
                     }
                     else if (finalI == 4)
                     {
-                        Intent intent = new Intent(MenuActivity.this,BarActivity.class);
+                        Intent intent = new Intent(MenuActivity.this,CafeActivity.class);
                         startActivity(intent);
                     }
                     else if (finalI == 5)
                     {
-                        Intent intent = new Intent(MenuActivity.this,BarActivity.class);
+                        Intent intent = new Intent(MenuActivity.this,BankActivity.class);
                         startActivity(intent);
                     }
                 }
