@@ -70,7 +70,7 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
             else  if (placeName.equals("cafe"))
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_cafe));
             else
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_cafe));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_restaurant));
 
             mMap.addMarker(markerOptions);
 
