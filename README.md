@@ -8,3 +8,7 @@ Google API'S were used. The API used were:
 * Maps SDK for Android	
 * Places API for Web	
 * Places SDK for Android
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=f4gg38tI_Qk
+" target="_blank"><img src="http://img.youtube.com/vi/f4gg38tI_Qk/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
